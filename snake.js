@@ -20,33 +20,31 @@ export function createSnake() {
 
 
 export function calculatePosition() {
-  let parentDirection = null;
 
-  for (const cell of snake) {
+  const cell = snake[0];
+  let {x, y} = cell.position;
 
-    switch (cell.direction) {
-      case 0:
-        cell.position.y -= 1;
-        break;
-      case 1:
-        cell.position.x += 1;
-        break;
-      case 2:
-        cell.position.y += 1;
-        break;
-      case 3:
-        cell.position.x -= 1;
-        break;
-    }
-
-    const direction = cell.direction;
-
-    if (parentDirection !== null && parentDirection !== cell.direction) {
-      cell.direction = parentDirection;
-    }
-    
-    parentDirection = direction;
+  switch (cell.direction) {
+    case 0:
+      y -= 1;
+      break;
+    case 1:
+      x += 1;
+      break;
+    case 2:
+      y += 1;
+      break;
+    case 3:
+      x -= 1;
+      break;
   }
+
+  snake.unshift({
+    position: {x, y},
+    direction: cell.direction
+  });
+
+  snake.pop();
 }
 
 
